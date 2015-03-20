@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html ng-app="toyasm">
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>toyassembler</title>
+
+	<link rel="stylesheet" href="./css/styles.css">
+	<link rel="stylesheet" href="./css/normalize.css">
+
+
+</head>
+<body>
+	<div class="title-bar" ng-controller="app">
+		<div class="title-buttons">
+			<div class="app-close" ng-click="close()">
+				<svg>
+					<path d="M1 1 L7 7 Z M7 1 L 1 7 Z" />
+				</svg>
+			</div>
+			<div class="app-minimize" ng-click="minimize()">
+				<svg>
+					<path d="M0 4 L8 4 Z" />
+				</svg>
+			</div>
+		</div>
+		<div class="title">
+			Toy-Assembler
+		</div>
+	</div>
+
+	<div class="loader">
+		<div class="text">
+			<div>
+				Loading...
+			</div>
+		</div>
+		<div class="spinner">
+			<div class="cube1"></div>
+			<div class="cube2"></div>
+		</div>
+	</div>
+
+	<div class="container main">
+		<ul>
+			<li class="folders current nav-btn" goto="folders">Folders</li>
+			<li class="files nav-btn" goto="files">Files</li>
+			<li class="settings nav-btn" goto="settings">Settings</li>
+		</ul>
+
+		<div id="folders_page" ng-controller="FoldersController">
+			<div id="dropzone">
+				<div class="img">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			 viewBox="0 0 612.106 612.106" style="enable-background:new 0 0 612.106 612.106;"
+			 xml:space="preserve">
+						<g>
+							<path d="M558.251,528.253h-504.4c-2.4,0-4.4-1.699-4.8-4.1l-49-302.5c-0.2-1.4,0.2-2.8,1.1-3.9s2.3-1.7,3.7-1.7h484
+					c0.101,0,0.3,0,0.4,0c0.2,0,20.6,1.5,32.399-9.4c5.601-5.2,8.5-12.6,8.5-22.1v-90.9h-98.399l-11.3,55.5
+					c-0.5,2.3-2.4,3.9-4.801,3.9h-333.3v16c0,2.7-2.2,4.9-4.9,4.9c-2.7,0-4.9-2.2-4.9-4.9v-20.9c0-2.7,2.2-4.9,4.9-4.9h334.3
+					l11.3-55.5c0.5-2.3,2.4-3.9,4.8-3.9h107.3c2.7,0,4.9,2.2,4.9,4.9v95.7c0,12.3-3.9,22.1-11.7,29.2
+					c-14.399,13.3-36.899,12.1-39.6,11.9h-478.1l47.4,292.8h496.1l48.301-298.2c0.399-2.6,2.899-4.4,5.6-4c2.6,0.4,4.4,2.9,4,5.6
+					l-49,302.4C562.65,526.554,560.65,528.253,558.251,528.253z"/>
+						</g>
+					</svg>
+				</div>
+				Drop folder to watch
+			</div>
+			<div id="folders">
+				<div ng-repeat="folder in folders">
+					<div>{{folder.path}}</div>
+					<div class="delete" ng-click="delete($index)">
+						<svg>
+							<path d="M1 1 L7 7 Z M7 1 L 1 7 Z" />
+						</svg>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="files_page" ng-controller="FilesController">
+			Files to assemble:
+			<div id="files">
+				<div ng-repeat="file in files" ng-shoe="!files.length">{{file.path}}</div>
+			</div>
+			<span ng-hide="files.length">Currently there are no files to assemble in one of your
+				directories.
+			</span>
+		</div>
+
+		<div id="settings_page" ng-controller="SettingsController">
+			Extensions for Toy file:
+			<input type="text" class="xxxl" ng-model="settings.dest" />
+			File extensions to assemble:
+			<div class="extensions">
+				<div class="row" ng-repeat="ext in settings.exts">
+					<div>
+						<input type="text" class="xxxl" ng-model="ext.name" />
+					</div>
+					<div class="delete_ext" ng-click="delete($index)">
+						<svg>
+							<path d="M1 1 L7 7 Z M7 1 L 1 7 Z" />
+						</svg>
+					</div>
+				</div>
+			</div>
+			<div class="add-btn" ng-click="add()"><div>+</div></div>
+		</div>
+	</div>
+
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/angular.min.js"></script>
+	<script src="./js/script.js"></script>
+</body>
+</html>
